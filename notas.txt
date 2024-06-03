@@ -1,0 +1,9 @@
+PyPDF2: Fácil de usar y adecuado para tareas simples de lectura de PDF.
+pdfminer.six: Más poderoso, capaz de manejar PDFs más complejos.
+PyMuPDF (fitz): Muy poderoso, capaz de manejar PDF y otros formatos de documentos, y ofrece muchas opciones para trabajar con el contenido del PDF.
+
+
+Auto EDA
+fasteda
+sweetviz as sv
+datatile

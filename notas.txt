@@ -7,3 +7,7 @@ Auto EDA
 fasteda
 sweetviz as sv
 datatile
+
+
+
+jupyter nbconvert '.\modulo3_DataWrangling\Clase 4 - Faltantes, duplicados y sanity check\CLASE_4_Faltantes,_duplicados_y_sanity_check_Práctica_individual_RESUELTO.ipynb' --to slides --output-dir 'jupyter nbconvert '.\modulo3_DataWrangling\Clase 4 - Faltantes, duplicados y sanity check\CLASE_4_Faltantes,_duplicados_y_sanity_check_Práctica_individual_RESUELTO.ipynb' --to slides --output-dir '.\modulo3_DataWrangling\Clase 4 - Faltantes, duplicados y sanity check\' --TemplateExporter.exclude_input=True --post serve' --TemplateExporter.exclude_input=True --post serve

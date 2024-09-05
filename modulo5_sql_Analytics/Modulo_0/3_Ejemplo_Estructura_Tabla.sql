@@ -1,0 +1,11 @@
+SELECT * FROM Information_Schema.Tables
+
+SELECT *
+FROM Information_Schema.Columns
+WHERE TABLE_NAME = 'PersonPhone'
+ORDER BY COLUMN_NAME
+
+
+SELECT *
+FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS
+WHERE TABLE_NAME = 'PersonPhone'

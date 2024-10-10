@@ -1,0 +1,15 @@
+ID,Temperatura,Humedad,Ventoso,Pronóstico,Salir a entrenar
+1,Cálido,Alta,No,Lluvia,No
+2,Cálido,Alta,Sí,Lluvia,No
+3,Cálido,Alta,No,Nublado,Si
+4,Templado,Alta,No,Soleado,Si
+5,Fresco,Normal,No,Soleado,Si
+6,Fresco,Normal,Sí,Soleado,No
+7,Fresco,Normal,Sí,Nublado,Si
+8,Templado,Alta,No,Lluvia,No
+9,Fresco,Normal,No,Lluvia,Si
+10,Templado,Normal,No,Soleado,Si
+11,Templado,Normal,Sí,Lluvia,Si
+12,Templado,Alta,Sí,Nublado,Si
+13,Cálido,Normal,No,Nublado,Si
+14,Templado,Alta,Sí,Soleado,No

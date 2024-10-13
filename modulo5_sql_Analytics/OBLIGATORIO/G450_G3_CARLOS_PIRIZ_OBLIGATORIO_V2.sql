@@ -18,7 +18,7 @@ Cliente_Cod				Foreign key a Cliente	date
 
 /*
 A nuestro parecer 4 aspectos a mejorar de la estructura, podrian ser:
-	1 - Que el campo Producto_Cod sea autoincremental y se establezca como clave primaria, mas alla de que el campo Producto_Descripción fuera de valores unicos( e indexado).
+	1 - Que el campo Producto_Cod sea autoincremental y se establezca como clave primaria, mas alla de que el campo Producto_Descripción fuera de valores unicos( e indexado), pudiendo no ser clave primaria.
 	2 - Que el campo Color, sea numerico, y sea foreign key a una tabla Color (relacionada por ese id de color numerico)
 	3 - Que el campo Fecha_creacion sea de tipo date o datetime
 	4 - Que no este el campo Cliente_Cod, ya que entendemos que ese campo no corresponde para la tabla Producto
@@ -68,11 +68,13 @@ a) Explique conceptualmente qué retorna la misma (información)
 b) Explique con qué intención se utilizaron las cláusulas INNER JOIN
 c) Explique para qué se utilizó la cláusula HAVING y por qué esto no fue realizado en la cláusula WHERE
 
-a) Entendemos que se quiso traer la cantidad de ordenes que se hicieron por producto y fecha de orden (esta asumiendo que en una orden cada producto ocupa una linea y no puede haber en una misma orden, dos lineas con el mismo producto repetido).
+a) Entendemos que se quiso traer la cantidad de ordenes que se hicieron por producto y fecha de orden 	
 	Ademas solo considera los resultados que para el mismo producto y fecha tengas mas de una orden
 	Y finalmente los ordena por la cantidad de ordenes de forma descendente
-b) Se utilizaron para asegurar que sean productos que tengan ordenes para las fechas que devuelva. Porque podrian haber productos que no tuvieran ordenes relacionadas. Y ademas se considean las ordenes que si tengan lineas de detalles.
-c) Having se utilizo para filtrar que solo devolviera los registros de productos que tengan mas de una orden para esa fecha. Y no se hizo en el where porque por sintaxis, el having debe ir luego del group by, ya que trabaja sobre los resultados agrupados.
+b) Se utilizaron para asegurar que sean productos que tengan ordenes para las fechas que devuelva. Porque podrian haber productos que no tuvieran ordenes relacionadas. 
+	Y ademas se consideran las ordenes que si tengan lineas de detalles.
+c) Having se utilizo para filtrar que solo devolviera los registros de productos que tengan mas de una orden para esa fecha. 
+	Y no se hizo en el where porque por sintaxis, el having debe ir luego del group by, ya que trabaja sobre los resultados agrupados.
 */
 -- -----------------------------------------------------------------------------------------------------
 /*
@@ -84,7 +86,7 @@ a)
 	Entendemos que la sentencia es incorrecta ya que:
 		los esquemas SalesLT no existen, deberian ser Sales.
 		el campo CompanyName no existe en la tabla Customer, podria ser el campo CustomerID
-	De esta manera una posible solucion, que devuelva el CustomerID, su ordenes asociadas y el total de la deuda para cada orden, podria ser:
+	De esta manera, una posible solucion, que devuelva el CustomerID, su ordenes asociadas y el total de la deuda para cada orden, podria ser:
 	SELECT 
 		c.CustomerID,
 		soh.SalesOrderID,
@@ -107,16 +109,7 @@ order by
 /*
 b)
 	Entendemos que la sentencia es correcta.
-	Conceptualmente, devolveria los nombres de los productos que fueron ordenados con su cantidad ordenada y el precio de lista de ese producto.
-	SELECT 
-		c.CustomerID,
-		soh.SalesOrderID,
-		SOH.TotalDue
-	FROM
-		Sales.Customer AS c
-		JOIN Sales.SalesOrderHeader AS soh ON c.CustomerID = soh.CustomerID
-	order by
-		c.CustomerID,soh.SalesOrderID;
+	Conceptualmente, devolveria los nombres de los productos que fueron ordenados con su cantidad ordenada y el precio de lista de ese producto.	
 */
 SELECT
 	OrderQty,
@@ -140,7 +133,7 @@ Desarrolle la consulta SQL que permita generar como resultado:
 • Muestre el resultado retornado por MSSQL Server Management Studio
 */
 SELECT
-	*
+	P.*
 FROM
 	Production.Product AS P
 WHERE
@@ -168,6 +161,8 @@ FROM
 			SELECT
 				SOH.CustomerID,
 				SUM(SOH.TotalDue) AS 'TOTAL'
+				-- POdria ser subtotal si solo se quiere tener en cuenta segun los detalles de las lineas
+				-- SUM(SOH.SubTotal) AS 'TOTAL'
 			FROM 
 				SALES.SalesOrderHeader AS SOH 
 			GROUP BY 
@@ -233,8 +228,7 @@ FROM
 		HAVING
 			MAX(SOD.OrderQty)=1
 		*/
-		
-		
+				
 		-- ORDENES QUE TIENEN ORDENADOS UN SOLO PRODUCTO, PRODUCTID
 		SELECT
 			SOD.SalesOrderID,
@@ -244,8 +238,7 @@ FROM
 		GROUP BY
 			SOD.SalesOrderID
 		HAVING
-			COUNT(SOD.ProductID)=1
-		
+			COUNT(SOD.ProductID)=1		
 	) AS ORD_UN_PRODUCTO ON P.ProductID = ORD_UN_PRODUCTO.ProductID
 	JOIN Sales.SalesOrderHeader SOH ON SOH.SalesOrderID = ORD_UN_PRODUCTO.SalesOrderID
 order by
